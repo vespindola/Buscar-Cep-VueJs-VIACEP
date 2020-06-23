@@ -15,14 +15,15 @@
         <div v-if="error != ''">
             {{error}}
         </div>
-
-        <div v-show="address.cidade">
+        
+        <div v-show="address.localidade">
             <p><b>Logradouro: </b>{{address.logradouro}}</p>
             <p><b>Bairro: </b>{{address.bairro}}</p>
-            <p><b>Cidade: </b>{{address.cidade}}</p>
-            <p><b>Estado: </b>{{address.estado}}</p>
+            <p><b>Cidade: </b>{{address.localidade}}</p>
+            <p><b>Estado: </b>{{address.uf}}</p>
             <p><b>Cep: </b>{{address.cep}}</p>
-
+            <p><b>Complemento: </b>{{address.complemento}}</p>
+            <p><b>Ibge: </b>{{address.ibge}}</p>
         </div>
     </div>
 </template>
@@ -30,7 +31,7 @@
 export default {
     data (){
         return{
-            title: 'Buscar Cep com VueJs',
+            title: 'Buscar Cep com VIACEP',
             cep: '',
             address:{},
             preloader: false,
@@ -41,7 +42,7 @@ export default {
         onSubmit(){
             this.reset(),
             this.preloader = true
-            this.$http.get('https://api.postmon.com.br/v1/cep/' + this.cep)
+            this.$http.get('https://viacep.com.br/ws/'+this.cep+'/json/')
             .then(response =>{
                 this.address = response.body
             
